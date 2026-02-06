@@ -1,0 +1,80 @@
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Data
+data/raw/*.csv
+data/processed/
+data
+# Models
+models/*.pkl
+models/*.joblib
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+*.duckdb
+.env
+.env.local
+.env.*.local
+
+# MLflow tracking
+mlruns/
+.mlflow/
+
+# DuckDB POC
+duckdb_poc/baseball.duckdb
+duckdb_poc/models/
+duckdb_poc/*.duckdb
+
+# Snowflake POC
+snowflake_poc/baseball.duckdb
+snowflake_poc/models/
+
+# Logs
+*.log
+logs/
+
+# Python testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
+
+# FastAPI
+.uvicorn/
+
+# Artifacts from GitHub Actions
+artifacts/
+training_artifacts/
+
+# MacOS
+.AppleDouble
+.LSOverride
+*.DS_Store
+
+# Windows
+*.lnk
