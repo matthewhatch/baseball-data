@@ -156,7 +156,54 @@ for idx, row in features_df.iterrows():
 
 features_df['home_recent_form'] = recent_wins
 
-# 6. Days of rest (simplified - using day of week)
+# 6. Rolling win rates (different windows for trend detection)
+print("✓ Computing rolling win rates...")
+
+# Rolling win rate for home team (last 5 games)
+rolling_5 = []
+for idx, row in features_df.iterrows():
+    home_team = row['home_team']
+    date = row['date']
+    
+    recent_games = features_df[(features_df['home_team'] == home_team) & (features_df['date'] < date)].tail(5)
+    if len(recent_games) > 0:
+        rolling_5.append(recent_games['home_win'].mean())
+    else:
+        rolling_5.append(0.5)
+
+features_df['home_rolling_wr_5'] = rolling_5
+
+# Rolling win rate for away team (last 5 games)
+rolling_away_5 = []
+for idx, row in features_df.iterrows():
+    away_team = row['away_team']
+    date = row['date']
+    
+    # Away team win rate = 1 - home_win rate
+    recent_games = features_df[(features_df['away_team'] == away_team) & (features_df['date'] < date)].tail(5)
+    if len(recent_games) > 0:
+        away_wins = (1 - recent_games['home_win']).mean()
+        rolling_away_5.append(away_wins)
+    else:
+        rolling_away_5.append(0.5)
+
+features_df['away_rolling_wr_5'] = rolling_away_5
+
+# Rolling win rate for home team (last 20 games)
+rolling_20 = []
+for idx, row in features_df.iterrows():
+    home_team = row['home_team']
+    date = row['date']
+    
+    recent_games = features_df[(features_df['home_team'] == home_team) & (features_df['date'] < date)].tail(20)
+    if len(recent_games) > 0:
+        rolling_20.append(recent_games['home_win'].mean())
+    else:
+        rolling_20.append(0.5)
+
+features_df['home_rolling_wr_20'] = rolling_20
+
+# 7. Days of rest (simplified - using day of week)
 print("✓ Adding rest/day features...")
 features_df['day_of_week'] = features_df['date'].dt.dayofweek
 features_df['month'] = features_df['date'].dt.month
@@ -174,7 +221,8 @@ feature_cols = [
     'home_historical_wr', 'away_historical_wr',
     'home_avg_score', 'away_avg_score',
     'days_into_season', 'home_field_advantage',
-    'home_recent_form', 'day_of_week', 'month'
+    'home_recent_form', 'home_rolling_wr_5', 'away_rolling_wr_5', 'home_rolling_wr_20',
+    'day_of_week', 'month'
 ]
 
 X = train_df[feature_cols].fillna(0.5)
