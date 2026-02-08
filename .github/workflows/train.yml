@@ -38,7 +38,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: models/
-          key: baseball-models-${{ hashFiles('src/train_model.py', 'requirements.txt') }}
+          key: baseball-models-${{ hashFiles('src/train_model.py', 'requirements.txt', 'poetry.lock') }}
           restore-keys: |
             baseball-models-
       
