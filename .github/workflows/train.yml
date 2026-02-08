@@ -33,17 +33,35 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
       
+      # 2b. Cache models to speed up subsequent runs
+      - name: Cache trained models
+        uses: actions/cache@v3
+        with:
+          path: models/
+          key: baseball-models-${{ hashFiles('src/train_model.py', 'requirements.txt') }}
+          restore-keys: |
+            baseball-models-
+      
+      # 2c. Cache data to avoid repeated downloads
+      - name: Cache baseball data
+        uses: actions/cache@v3
+        with:
+          path: data/raw/
+          key: baseball-data-2024
+          restore-keys: |
+            baseball-data-
+      
       # 3. Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install --no-cache-dir -r requirements.txt
       
       # 4. Fetch fresh data
       - name: Fetch fresh data
         run: |
           echo "📥 Fetching latest baseball data..."
-          python -m src.scraper
+          time python -m src.scraper
           echo "✓ Data fetch complete"
       
       # 5. Run EDA
@@ -57,7 +75,7 @@ jobs:
       - name: Train models
         run: |
           echo "🤖 Training models..."
-          python -m src.train_model > training_output.txt
+          time python -m src.train_model > training_output.txt
           echo "✓ Training complete"
       
       # 7. Extract metrics
