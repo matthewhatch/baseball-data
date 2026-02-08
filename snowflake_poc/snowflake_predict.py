@@ -124,17 +124,23 @@ class SnowflakePredictions:
             home_score = safe_value(home_stats['avg_score'], 4.5)
             away_score = safe_value(away_stats['avg_score'], 4.5)
             
-            # Create feature vector
+            # Create feature vector (matching train_model.py - 12 features)
+            # Order must match: home_historical_wr, away_historical_wr, home_avg_score, 
+            # away_avg_score, days_into_season, home_field_advantage, home_recent_form,
+            # home_rolling_wr_5, away_rolling_wr_5, home_rolling_wr_20, day_of_week, month
             features = [
-                home_wr,              # home_historical_wr
-                away_wr,              # away_historical_wr
-                home_score,           # home_avg_score
-                away_score,           # away_avg_score
-                0.5,                  # days_into_season (placeholder)
-                0.08,                 # home_field_advantage (placeholder)
-                home_wr,              # home_recent_form (placeholder)
-                2,                    # day_of_week (placeholder)
-                7                     # month (placeholder)
+                home_wr,              # 1. home_historical_wr
+                away_wr,              # 2. away_historical_wr
+                home_score,           # 3. home_avg_score
+                away_score,           # 4. away_avg_score
+                0.5,                  # 5. days_into_season (placeholder)
+                0.08,                 # 6. home_field_advantage (placeholder)
+                home_wr,              # 7. home_recent_form (use win_rate)
+                home_wr,              # 8. home_rolling_wr_5 (use win_rate)
+                away_wr,              # 9. away_rolling_wr_5 (use win_rate)
+                home_wr,              # 10. home_rolling_wr_20 (use win_rate)
+                2,                    # 11. day_of_week (placeholder)
+                7                     # 12. month (placeholder)
             ]
             
             # Validate no NaN in features
