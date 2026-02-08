@@ -240,7 +240,22 @@ def _get_team_stats(team: str, df: pd.DataFrame) -> dict:
 
 
 def _create_features(home_stats: dict, away_stats: dict) -> list:
-    """Create feature vector from team stats"""
+    """Create feature vector from team stats
+    
+    Feature order must match training:
+    1. home_historical_wr
+    2. away_historical_wr
+    3. home_avg_score
+    4. away_avg_score
+    5. days_into_season
+    6. home_field_advantage
+    7. home_recent_form
+    8. home_rolling_wr_5
+    9. away_rolling_wr_5
+    10. home_rolling_wr_20
+    11. day_of_week
+    12. month
+    """
     
     def safe_value(val, default=0.5):
         """Replace NaN/None with default"""
@@ -248,16 +263,23 @@ def _create_features(home_stats: dict, away_stats: dict) -> list:
             return default
         return val
     
+    # Use recent win rate as proxy for rolling windows
+    home_wr = safe_value(home_stats['win_rate'], 0.500)
+    away_wr = safe_value(away_stats['win_rate'], 0.500)
+    
     return [
-        safe_value(home_stats['win_rate'], 0.500),      # home_historical_wr
-        safe_value(away_stats['win_rate'], 0.500),      # away_historical_wr
-        safe_value(home_stats['avg_score'], 4.5),       # home_avg_score
-        safe_value(away_stats['avg_score'], 4.5),       # away_avg_score
-        0.5,                                              # days_into_season
-        0.08,                                             # home_field_advantage
-        safe_value(home_stats['win_rate'], 0.500),      # home_recent_form
-        2,                                                # day_of_week
-        7                                                 # month
+        home_wr,                                          # 1. home_historical_wr
+        away_wr,                                          # 2. away_historical_wr
+        safe_value(home_stats['avg_score'], 4.5),       # 3. home_avg_score
+        safe_value(away_stats['avg_score'], 4.5),       # 4. away_avg_score
+        0.5,                                              # 5. days_into_season (placeholder)
+        0.08,                                             # 6. home_field_advantage (placeholder)
+        home_wr,                                          # 7. home_recent_form (use win_rate)
+        home_wr,                                          # 8. home_rolling_wr_5 (use win_rate)
+        away_wr,                                          # 9. away_rolling_wr_5 (use win_rate)
+        home_wr,                                          # 10. home_rolling_wr_20 (use win_rate)
+        2,                                                # 11. day_of_week (placeholder)
+        7                                                 # 12. month (placeholder)
     ]
 
 
