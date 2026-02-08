@@ -30,12 +30,27 @@ baseball-data/
 ├── data/
 │   └── raw/               # CSV files (11,486 games)
 ├── models/                # Trained models & scalers
-├── docs/                  # Documentation
+├── docs/                  # Documentation (see below)
 ├── archive/               # Deprecated code & logs
 └── main.py                # Entry point
 ```
 
-**See [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) for detailed organization.**
+## Documentation
+
+All documentation is in the `docs/` folder:
+
+- **[docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md)** - Current system status, components working
+- **[docs/PROJECT_NEXT_STEPS.md](docs/PROJECT_NEXT_STEPS.md)** - 7 Phase 2 options with recommendations
+- **[docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)** - Detailed file organization
+- **[docs/ORGANIZATION.md](docs/ORGANIZATION.md)** - Code structure and benefits
+- **[docs/USE_CASES.md](docs/USE_CASES.md)** - 12 real-world usage scenarios
+- **[docs/MLOPS_GUIDE.md](docs/MLOPS_GUIDE.md)** - GitHub Actions, Docker, FastAPI, MLflow setup
+- **[docs/CLEANUP_LOG.md](docs/CLEANUP_LOG.md)** - Archive of cleanup operations
+- **[docs/OUTCOME_MODEL_SUMMARY.md](docs/OUTCOME_MODEL_SUMMARY.md)** - Model architecture & results
+- **[docs/SCRAPER_SUMMARY.md](docs/SCRAPER_SUMMARY.md)** - Data acquisition details
+- **[docs/DATA_GUIDE.md](docs/DATA_GUIDE.md)** - Field descriptions
+
+Start with [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for quick overview, or [docs/PROJECT_NEXT_STEPS.md](docs/PROJECT_NEXT_STEPS.md) if deciding what to build next.
 
 ## Features
 

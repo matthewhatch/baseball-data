@@ -583,32 +583,32 @@ for check, result in checks.items():
 
 ## Quick Reference by Role
 
-### Baseball Fan 🏟️
+### Baseball Fan
 ```bash
 python -m src.eda       # See team stats
 python -m src.predict   # Get predictions
 ```
 
-### Data Scientist 🔬
+### Data Scientist
 ```bash
 python -m src.eda           # Analyze data
 python -m src.train_model   # Experiment with models
 # Edit src/train_model.py for custom features/models
 ```
 
-### Developer 👨‍💻
+### Developer
 ```python
 from src.predict import predict_game
 result = predict_game(home_team, away_team, games, model)
 ```
 
-### Researcher 📊
+### Researcher
 ```bash
 python -m src.eda      # Get statistics
 # Use data in data/raw/ for analysis
 ```
 
-### Analyst 📈
+### Analyst
 ```bash
 python -m src.predict  # Get predictions
 # Batch predictions in upcoming_games.csv
